@@ -1,10 +1,3 @@
-/*
-  File name: app.js
-  Author: Meisam Koohaki
-  web site name: Jikiki
-  file description: js for the project web application (Assignment-2)
-*/
-
 'use strict';
 var debug = require('debug');
 var express = require('express');
@@ -21,7 +14,8 @@ var bcrypt = require('bcryptjs');
 var mongoose = require('mongoose');
 var cookieSession = require('cookie-session');
 
-const uri = "mongodb+srv://meisam:6465@cluster0-qjiac.mongodb.net/jikiki_login";
+const uri = "mongodb+srv://meisam:6465@cluster0-qjiac.mongodb.net/jikiki";
+
 try {
     mongoose.connect(uri, { iseNewUrlParser: true });
     var db = mongoose.connection;
@@ -30,10 +24,8 @@ try {
     });
     db.once('open', function (callback) {
 
-        //const collection = client.db("test").collection("devices");
         console.log("Connected");
         console.log("-----------------------------------------");
-        //console.log(collection);
     });
 } catch (err) {
     console.log("Error : " + err);
@@ -82,52 +74,17 @@ passport.serializeUser(function (user, done) {
 //deserialize user try to find username
 passport.deserializeUser(function (id, done) {
     userModel.findById(id, function (err, user) {
-        done(err, user);
+        if (err) console.log(err);
+        if (user) {
+            done(err, user);
+        } else {
+            userGoogleModel.findById(id, function (err, user) {
+                if (err) console.log(err);
+                done(err, user);
+            })
+        }
     });
 });
-
-
-
-/*
-    I created this but did not finished because it was extra work (I sent you an email) and also I did not have time :-)
-    It can get account info from Google and read it (you can see in console, if user exist pass the authenticaion, if not
-    create an account for user and save needed information on the database, but it cannot open the page
-*/
-
-//deserialize user try to find username
-
-//passport.deserializeUser(function (obj, done) {
-//    switch (obj.type) {
-//        case 'user':
-//            userModel.findById(obj.id, function (err, user) {
-//                if (!err) {
-//                    done(null, user);
-//                } else {
-//                    console.log('Err1: ', err)
-//                }
-//            });
-//            break;
-//        case 'google':
-//            userGoogleModel.findById(obj.id, function (err, google) {
-//                if (!err) {
-//                    done(null, google);
-//                } else {
-//                    console.log('Err2: ', err)
-//                }
-//            });
-//            break;
-//        default:
-//            done(err, null);
-//            break;
-//    }
-//});
-
-
-/*
-    I created this but did not finished because it was extra work (I sent you an email) and also I did not have time :-)
-    It can get account info from Google and read it (you can see in console, if user exist pass the authenticaion, if not
-    create an account for user and save needed information on the database, but it cannot open the page
-*/
 
 //Local strategy used for logging users
 passport.use(new LocalStrategy(
@@ -153,12 +110,6 @@ passport.use(new LocalStrategy(
     }
 ));
 
-/*
-    I created this but did not finished because it was extra work (I sent you an email) and also I did not have time :-)
-    It can get account info from Google and read it (you can see in console, if user exist pass the authenticaion, if not
-    create an account for user and save needed information on the database, but it cannot open the page
-*/
-
 //Startegy for google accounts
 passport.use(new GoogleStrategy({
     clientID: '666388657629-op2tb225or4co9o4cas8adarkpee28be.apps.googleusercontent.com',
@@ -166,7 +117,6 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:1337/google/callback"
 },
     function (accessToken, refreshToken, profile, done) {
-        console.log(profile);
 
         var emailArray = new Array();
 
@@ -179,12 +129,11 @@ passport.use(new GoogleStrategy({
                 return console.log(err);
             }
             if (!err && user !== null) {
-                console.log('Already existing user:' + user);
-                return done(null, profile);
-
+                console.log('---------------------Already user exists---------------------');
+                return done(null, user);
             } else {
-                console.log('Creating a new user');
-                //const newUser = new userGoogleModel(registerUser);
+                console.log('---------------------Creating a new user---------------------');
+  
                 const user = new userGoogleModel({
 
                     username: profile.name.givenName,
@@ -195,11 +144,11 @@ passport.use(new GoogleStrategy({
                     if (err) {
                         console.log(err);
                     } else {
-                        done(null, user);
+                        return done(null, user);
                     }
                 });
             }
-            return done(null, profile);
+            //return done(null, profile);
         });
     }
 ));

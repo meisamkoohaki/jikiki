@@ -1,10 +1,3 @@
-/*
-  File name: main.js
-  Author: Meisam Koohaki
-  web site name: Jikiki
-  file description: CSS for the project website (Assignment-2)
-*/
-
 
 // When the user scrolls the page, execute myFunction
 window.onscroll = function () {

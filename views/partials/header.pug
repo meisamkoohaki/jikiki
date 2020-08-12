@@ -14,15 +14,16 @@ html
 			div#topContainer
 				if (!user)
 					div#home_links
-						form(method='POST' action='/login')
-							div.login
-								input.login_input(type='text' name='username' placeholder='Username' id="username")
-							div.login
-								input.login_input(type='password' name='password' placeholder='Password' id="password")
-							div.login
-								button(type='submit' value='login' id="home_login_button") Login	
-						div.login
-							a(href="/google" id="google_login_button") Google
+						div#google_login_div
+							form.home_login_button_div(method='POST' action='/login')
+								div.login
+									input.login_input(type='text' name='username' placeholder='Username' id="username")
+								div.login
+									input.login_input(type='password' name='password' placeholder='Password' id="password")
+								div.login
+									button(type='submit' value='login' id="home_login_button") Login	
+							div.home_login_button_div
+								a(href="/google" id="google_login_button") Login with Google
 						div#home_buttons_link
 							div.home_signup_button
 								a(href="/retrieving" id="retrieving_button") Retrieving
@@ -30,7 +31,8 @@ html
 							div.home_signup_button
 								a(href="/signup" id="signup_button_home") Sign up
 				else
-					h1.home_signup_button#logout_button
+					h1#h1login= 'Welcome ' + user.username 
+					div.home_signup_button#logout_button
 						a(href="/logout" class="signup_button") Logout
 
 

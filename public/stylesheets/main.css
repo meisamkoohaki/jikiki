@@ -1,11 +1,4 @@
 ﻿
-/*
-  File name: main.css
-  Author: Meisam Koohaki
-  web site name: Jikiki
-  file description: CSS for the project website (Assignment-2) 
-*/
-
 @charset "UTF-8";
 
 * {
@@ -74,7 +67,7 @@ h1 a {
 
 #h1signup, #h1retrievingMesssage {
     font-size: 1.2em;
-    margin-left: 41%;
+    margin-left: 40%;
     margin-top: 20px;
 }
 
@@ -83,7 +76,7 @@ h1 a {
     color: red;
 }
 
-#h1retrieving, #h1show {
+#h1retrieving, #h1show, #h1login {
     font-size: 1.2em;
     margin-left: 35%;
     margin-top: 20px;
@@ -92,6 +85,14 @@ h1 a {
 
 #h1show {
     margin-left: 20%;
+}
+
+#h1login {
+    position: relative;
+    margin-left: 80%;
+    color: #8000FF;
+    text-transform: none;
+    padding-bottom: 10px;
 }
 
 #h2retrieving {
@@ -115,8 +116,8 @@ h1 a {
 }
 
 #home_links {
-    width: 75%;
-    margin-left: 25%;
+    width: 70%;
+    margin-left: 30%;
 }
 
 .home_signup_button, #home_login_button, #google_login_button {
@@ -129,9 +130,8 @@ h1 a {
     color: white;
 }
 
-#home_buttons_link {
+.home_buttons_link {
     position: relative;
-    top: 30px;
     margin-bottom: 30px;
 }
 
@@ -141,22 +141,29 @@ h1 a {
 }
 
 #google_login_button {
+    position: relative;
     top: 1.5px;
     padding-right: 20px;
     padding-left: 20px;
     height: 38px;
-    margin-left: 40%;
+    top: 62px;
     text-decoration: none;
     padding-bottom: 2.5px;
+    right: 15.8%;
 }
 
 .home_signup_button {
     font-size: 1em;
-    width: 10%;
-    margin-left: 83%;
-    top: -29px;
+    width: 15%;
+    margin-left: 80%;
+    top: -33px;
     font-weight: 300;
     padding-bottom: 3px;
+    margin-bottom: 10px;
+}
+
+.home_login_button_div {
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -172,13 +179,6 @@ h1 a {
 }
 
 .login {
-    float: left;
-    position: relative;
-    margin-left: 5%;
-    text-decoration: none;
-}
-
-.login_all {
     float: left;
     position: relative;
     margin-left: 5%;
@@ -279,12 +279,16 @@ h1 a {
     margin-left: 5%;
 }
 
-#line2 {
+#line2, #line3 {
     position: relative;
     border-bottom: 3px solid #483D8B;
     margin-top:10px;
     width: 90%;
     margin-left: 7%;
+}
+
+#line3 {
+    width: 85%;
 }
 
 .item_form {
@@ -368,7 +372,7 @@ h1 a {
 }
 
 #signup_submit_button {
-    margin-left: 40%;
+    margin-left: 30%;
 }
 
 #retrieving_delete {
@@ -405,6 +409,11 @@ h1 a {
 
 #retrieving_form {
     margin-left: 10%;
+}
+
+#retrieving_form_div {
+    width: 40%;
+    margin-left: 30%;
 }
 
 #signup_form {

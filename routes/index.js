@@ -1,11 +1,3 @@
-/*
-  File name: index.js
-  Author: Meisam Koohaki
-  web site name: Jikiki
-  file description: js for the project web application (Assignment-2)
-*/
-
-
 'use strict';
 var express = require('express');
 var router = express.Router();
@@ -36,6 +28,7 @@ router.get('/home', function (req, res, next) {
         }
     });
 });
+
 
 /*POST for login*/
 //Try to login with passport  - It uses authenticat checking to avoid getting/display page withought logging in */
@@ -81,7 +74,6 @@ router.post('/signup', function (req, res) {
                             res.redirect('/home');
                         });
                     } else {
-                        console.log();
                         res.render('signup', { message: 'Username or email already exist, please try again.' });
                     }
                 } else if (req.body.password != req.body.repassword) {
@@ -139,7 +131,7 @@ router.post('/submit', upload.single('image'), function Create(req, res) {
             });
 
         } else {
-            console.log('some fields are not completed.');
+            console.log('---------------------some fields are not completed---------------------');
             res.redirect('/personal');
         }
     } else {
@@ -249,7 +241,6 @@ router.post('/update', upload.single('image'), function Create(req, res) {
         } else {
             itemModel.findById(req.body.id, function (err, foundItem) {
                 if (err) console.log(err);
-                console.log();
                 //Render show page with specific article
                 res.render('show', { title: 'Show', user: req.user, item: foundItem, message: 'All Name, Price, and Description fields must be filled out' });
             });
@@ -268,7 +259,6 @@ router.post('/delete/:id', (function (req, res) {
             itemModel.findById({ _id: itemId }, function (err, foundItem) {
 
                 if (err) console.log(err);
-                console.log(foundItem);
                 // This condition avoid error when the item does not contain image
                 if (foundItem.imageName) {
                     //Remove the local image in imageStorage
@@ -276,7 +266,7 @@ router.post('/delete/:id', (function (req, res) {
                         if (err) console.log(err);
                     });
                 } else {
-                    console.log('Item does not contain picture.');
+                    console.log('---------------------Item does not contain picture---------------------');
                 }
 
                 itemModel.findByIdAndDelete(itemId, function (err, result) {
@@ -301,7 +291,7 @@ router.get('/personal', function (req, res) {
             if (err) console.log(err);
             itemModel.find({}, function (err, items) {
 
-                if (err) console.log('Something in fetching went wrong!');
+                if (err) console.log('---------------------Something in fetching went wrong!---------------------');
                 res.render("personal", { user: req.user, items: items });
             });
         });
@@ -394,44 +384,15 @@ router.post('/delete_account', function (req, res) {
     });
 });
 
-
-
-
-/* 
-    I created this but did not finished because it was extra work (I sent you an email) and also I did not have time :-)
-    It can get account info from Google and read it (you can see in console, if user exist pass the authenticaion, if not 
-    create an account for user and save needed information on the database, but it cannot open the page 
-*/
-
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-
-    res.redirect('/');
-}
-
-// Initializes passport and passport sessions
-router.use(passport.initialize());
-router.use(passport.session());
-
 /*Get for login with google*/
 //Try to login with passport(google)
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }), function (req, res) {
-    //console.log('Authenticating as: ' + req.user.email + ', oAuthID: ' + req.user.oauthID);
-
 });
 
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-    function (req, res) {
-        // Successful authentication, redirect good for example.
-        res.redirect('/good');
-    }
-);
-
-router.get('/failed', (req, res) => res.send('You Failed to log in!'))
-
-// In this route you can see that if the user is logged in u can acess his info in: req.user
-router.get('/good', isLoggedIn, (req, res) => res.send(`Welcome mr ${req.user.username}!`))
+router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: '/users',
+    failureRedirect: '/home',
+    failureMessage: 'Invalid Login'
+}));
 
 module.exports = router;

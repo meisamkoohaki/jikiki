@@ -7,3 +7,6 @@ C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Assignment-2-part-1\comp2
 C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Assignment-2-part-2\comp2068-assignment-2-part-2\Jikiki\obj\Debug\Jikiki.njsprojAssemblyReference.cache
 C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Assignment-2-part-2\comp2068-assignment-2-part-2\Jikiki\obj\Debug\Jikiki.njsproj.CoreCompileInputs.cache
 C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Assignment-2-part-2\comp2068-assignment-2-part-2\Jikiki\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Jikiki\jikiki\obj\Debug\Jikiki.njsprojAssemblyReference.cache
+C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Jikiki\jikiki\obj\Debug\Jikiki.njsproj.CoreCompileInputs.cache
+C:\Hard Drive\College\Semester 4\JavaScript Frameworks\Jikiki\jikiki\bin\Microsoft.NodejsTools.WebRole.dll
