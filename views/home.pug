@@ -1,0 +1,27 @@
+//-link to the header.pug file in the partials folder in views
+extends partials/header
+
+//-link to the block position in header.pug file in the partials folder in views
+block content
+    h1#h1retrieving= message 
+    br
+    table
+        tr
+            th NAME
+            th DESCRIPTION
+            th PRICE
+            th IMAGE
+
+        each item in items
+            tr 
+                td= item.name
+                td= item.description
+                td= "$" + parseFloat(item.price).toFixed(2)
+                td
+                    if (item.imageName)
+                        img(src=`imageStorage/${item.imageName}` width='100px')
+                    else
+                        p -
+
+    //link to the footer.pug file in the partials folder in views
+    include partials/footer
