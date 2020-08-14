@@ -90,7 +90,7 @@ router.post('/signup', function (req, res) {
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
-        cb(null, '/public/imageStorage')
+        cb(null, './public/imageStorage')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + '.png')
