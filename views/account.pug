@@ -10,8 +10,9 @@ block content
     br
     div#retrieving_form
         if (!user.imageAddress)
-            div#user_photo
-                img#image_show(src=`../imageStorage/${user.username}-${user._id}/${user.imageName}`)
+            if (user.imageName)
+                div#user_photo
+                    img#image_show(src=`../imageStorage/${user.username}-${user._id}/${user.imageName}`)
             div.retrieving_form
                 h2#h2account Update Account
                 div#line2
