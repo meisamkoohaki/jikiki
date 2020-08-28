@@ -112,7 +112,7 @@ passport.use(new LocalStrategy(
 passport.use(new GoogleStrategy({
     clientID: '666388657629-op2tb225or4co9o4cas8adarkpee28be.apps.googleusercontent.com',
     clientSecret: 'LAial6nMu9TuZkKwYNR-omTE',
-    callbackURL: "http://localhost:1337/google/callback"
+    callbackURL: "https://jikiki.herokuapp.com/google/callback"
 },
     function (accessToken, refreshToken, profile, done) {
 

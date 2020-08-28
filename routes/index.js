@@ -93,7 +93,7 @@ router.post('/signup', function (req, res) {
                                                     <p>ACCOUNT ACTIVATION</p>
                                                     <h3>This email sent you because of your registration in JIKIKI</h3>
                                                     <h>For activate your account click on the below link</h4>
-                                                    <p>http://localhost:1337/activation/api/auth/verification/verify-account/${user._id}/${user.activationCode}</p>
+                                                    <p>https://jikiki.herokuapp.com/activation/api/auth/verification/verify-account/${user._id}/${user.activationCode}</p>
                                                     `;
 
                                                     // create reusable transporter object using the default SMTP transport / I have an account in Hostinger, then I used that.
@@ -645,33 +645,6 @@ router.get('/account', function (req, res) {
         res.redirect('/')
     }
 });
-
-
-//var multer1 = require('multer');
-
-////creating the file name and destination directory when called
-//var newStorage = multer1.diskstorage({
-//    destination: function (req, file, cb) {
-//        const newdirectory = './public/imagestorage/' + req.body.seller + '-' + req.body.userid + '/';
-//        if (!fs.existssync(newdirectory)) {
-
-//            fs.mkdir('./public/imagestorage/' + req.body.seller + '-' + req.body.userid + '/', function (err) {
-//                if (err) {
-//                    console.log(err)
-//                } else {
-//                    console.log("new directory successfully created.")
-//                }
-//            });
-//        }
-//        cb(null, './public/imagestorage/' + req.body.seller + '-' + req.body.userid + '/')
-//    },
-//    filename: function (req, file, cb) {
-//        cb(null, file.fieldname + '-' + date.now() + '.png')
-//    }
-//});
-
-////Creating uploader
-//var photoUpload = multer1({ storage: newStorage });
 
 /* POST account page - It will update the account information and also exchange the user's directory name */
 router.post('/update_account', upload.single('image'), function Create(req, response) {
