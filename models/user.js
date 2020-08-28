@@ -1,10 +1,3 @@
-/*
-  File name: user.js
-  Author: Meisam Koohaki
-  web site name: Jikiki
-  file description: js for the project web application (Assignment-2)
-*/
-
 const mongoose = require('mongoose');
 
 //Create the user schema
@@ -25,7 +18,21 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         lowercase: true
+    },
+    image: {
+        data: Buffer,
+        contentType: String
+    },
+    imageName: {
+        type: String
+    },
+    active: {
+        type: Boolean
+    },
+    activationCode: {
+        type: String
     }
+
 });
 
 //Create, instantiate and export model with schema

@@ -23,7 +23,7 @@ html
 								div.login
 									button(type='submit' value='login' id="home_login_button") Login	
 							div.home_login_button_div
-								a(href="/google" id="google_login_button") Login with Google
+								a(href="/google" id="google_login_button") Login with                 
 						div#home_buttons_link
 							div.home_signup_button
 								a(href="/retrieving" id="retrieving_button") Retrieving
@@ -31,9 +31,17 @@ html
 							div.home_signup_button
 								a(href="/signup" id="signup_button_home") Sign up
 				else
-					h1#h1login= 'Welcome ' + user.username 
-					div.home_signup_button#logout_button
-						a(href="/logout" class="signup_button") Logout
+					div#logout_button
+						div.header_div_1
+							a#logout_button2(href="/account" class="signup_button")
+								h1#h1login= 'Welcome ' + user.username
+								if (user.imageName)
+									img#user_photo_image(src=`../imageStorage/${user.username}-${user._id}/${user.imageName}`)
+								if (user.imageAddress)
+									img#user_photo_image(src=`${user.imageAddress}`)
+						div.header_div_1#logout_button1
+							a(href="/logout" class="signup_button") Logout
+
 
 
 				div#myBanner.banner

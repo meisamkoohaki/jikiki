@@ -3,7 +3,10 @@ extends partials/header
 
 //-link to the block position in header.pug file in the partials folder in views
 block content
-    h1#h1retrieving= message
+    if (message)
+        h1#h1retrievingError= message
+    if (success_message)
+        h1#h1retrievingSuccess= success_message
     div#retrieving_form
         div.retrieving_form
             h2#h2retrieving Retrieving Username
@@ -19,10 +22,26 @@ block content
                         input.signup_input(type='password' placeholder='Password' name='password' required)
                     div#signup_submit
                         button#retrieving_submit_button(type='submit' value='signup') Username
+
         div.retrieving_form
-            h3#h2retrieving Delete your account
+            h3#h2retrievingp Change password
             div#line2
-            p#pretrievingd Create another
+            p#pretrievingp It will open other page
+            div#signup_form
+        
+                //Insert form
+                form(method='POST' action='/update_password' autocomplete='off')
+                    div.retrieve_form
+                        input.signup_input(type='email' placeholder='Email' name='email' required)
+                    div.retrieve_form
+                        input.signup_input(type='text' placeholder='Username' name='username' required)
+                    div#signup_submit
+                        button#retrieving_submit_button(type='submit' value='update') Password
+
+        div.retrieving_form
+            h4#h2retrievingd Delete account
+            div#line2
+            p#pretrievingd It will delete your items
             div#signup_form
         
                 //Insert form
@@ -30,9 +49,9 @@ block content
                     div.retrieve_form
                         input.signup_input(type='email' placeholder='Email' name='email' required)
                     div.retrieve_form
-                        input.signup_input(type='username' placeholder='Username' name='username' required)
+                        input.signup_input(type='text' placeholder='Username' name='username' required)
                     div#signup_submit
-                        button#retrieving_submit_button(type='submit' value='signup') Delete
+                        button#retrieving_submit_button(type='submit' value='delete') Delete
 
     //-link to the footer.pug file in the partials folder in views
     include partials/footer

@@ -1,14 +1,11 @@
-/*
-  File name: item.js
-  Author: Meisam Koohaki
-  web site name: Jikiki
-  file description: js for the project web application (Assignment-2)
-*/
-
 const mongoose = require('mongoose');
 
 //Create the user schema
 const ItemSchema = new mongoose.Schema({
+    seller: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true,
@@ -30,6 +27,10 @@ const ItemSchema = new mongoose.Schema({
     },
     imageName: {
         type: String
+    },
+    userId: {
+        type: String,
+        required: true
     }
 });
 

@@ -3,7 +3,6 @@ var debug = require('debug');
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -14,7 +13,7 @@ var bcrypt = require('bcryptjs');
 var mongoose = require('mongoose');
 var cookieSession = require('cookie-session');
 
-const uri = "mongodb+srv://meisam:6465@cluster0-qjiac.mongodb.net/jikiki";
+const uri = "mongodb+srv://meisam:6465@cluster0-qjiac.mongodb.net/jikiki_seperate_users_final";
 
 try {
     mongoose.connect(uri, { iseNewUrlParser: true });
@@ -34,7 +33,6 @@ try {
 
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var userModel = require('./models/user');
 var userGoogleModel = require('./models/user-google');
 
@@ -63,8 +61,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', routes);
-app.use('/users', users);
-
 
 //Serialize user
 passport.serializeUser(function (user, done) {
@@ -89,9 +85,7 @@ passport.deserializeUser(function (id, done) {
 //Local strategy used for logging users
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        userModel.findOne({
-            username: username
-        }, function (err, user) {
+        userModel.findOne({ username: username }, function (err, user) {
             if (err) {
                 return done(err);
             }
@@ -102,6 +96,10 @@ passport.use(new LocalStrategy(
 
             //Compare hashed passwords
             if (!bcrypt.compareSync(password, user.password)) {
+                return done(null, false);
+            }
+
+            if (!user.active) {
                 return done(null, false);
             }
 
@@ -119,9 +117,13 @@ passport.use(new GoogleStrategy({
     function (accessToken, refreshToken, profile, done) {
 
         var emailArray = new Array();
-
         profile.emails.forEach((email) => {
             emailArray.push(email.value);
+        })
+
+        var photoArray = new Array();
+        profile.photos.forEach((photo) => {
+            photoArray.push(photo.value);
         })
 
         userGoogleModel.findOne({ $or: [{ oauthID: profile.id }, { email: { $in: emailArray } }] }, function (err, user) {
@@ -129,26 +131,40 @@ passport.use(new GoogleStrategy({
                 return console.log(err);
             }
             if (!err && user !== null) {
-                console.log('---------------------Already user exists---------------------');
+                console.log('---------------------Already user exists in userGoogleModel---------------------');
                 return done(null, user);
             } else {
-                console.log('---------------------Creating a new user---------------------');
-  
-                const user = new userGoogleModel({
 
-                    username: profile.name.givenName,
-                    oauthID: profile.id,
-                    email: emailArray[0]
-                });
-                user.save(function (err) {
+                userModel.findOne({ email: { $in: emailArray } }, function (err, user) {
                     if (err) {
-                        console.log(err);
+                        return console.log(err);
+                    }
+                    if (!err && user !== null) {
+                        console.log('---------------------Already user exists in userModel---------------------');
+                       // return done(err);
+                        done(null, false)
                     } else {
-                        return done(null, user);
+
+                        console.log('---------------------Creating a new user---------------------');
+
+                        const user = new userGoogleModel({
+
+                            username: profile.name.givenName,
+                            oauthID: profile.id,
+                            email: emailArray[0],
+                            active: true,
+                            imageAddress: photoArray[0]
+                        });
+                        user.save(function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                return done(null, user);
+                            }
+                        });
                     }
                 });
             }
-            //return done(null, profile);
         });
     }
 ));

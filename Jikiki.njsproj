@@ -32,6 +32,7 @@
     <Content Include="app.js" />
     <Content Include="models\item.js" />
     <Content Include="models\user-google.js" />
+    <Content Include="public\images\google.jpg" />
     <Content Include="public\images\jikiki.jpg" />
     <Content Include="public\javascripts\main.js">
       <SubType>Code</SubType>
@@ -40,18 +41,22 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
-    <Content Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="views\main.pug" />
+    <Content Include="views\partials\header-1.pug" />
     <Content Include="views\personal.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\home.pug" />
+    <Content Include="views\account.pug" />
     <Content Include="views\show.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\retrieving.pug" />
+    <Content Include="views\password.pug" />
+    <Content Include="views\activation.pug" />
     <Content Include="views\signup.pug">
       <SubType>Code</SubType>
     </Content>

@@ -8,6 +8,7 @@ block content
     br
     table
         tr
+            th SELLER
             th NAME
             th DESCRIPTION
             th PRICE
@@ -17,12 +18,13 @@ block content
    
         each item in items
             tr 
+                td= item.seller
                 td= item.name
                 td= item.description
                 td= "$" + parseFloat(item.price).toFixed(2)               
                 td
                     if (item.imageName)
-                        img(src=`/imageStorage/${item.imageName}` width='100px')
+                        img(src=`/imageStorage/${item.seller}-${item.userId}/${item.imageName}` width='100px')
                     else
                         p -
                 td
@@ -34,6 +36,8 @@ block content
     div#item_form
         form(method='POST' enctype='multipart/form-data' action='/submit')
             div#item_input_form
+                input(type='hidden' name='seller' value=user.username)
+                input(type='hidden' name='userId' value=user.id)
                 div.item_form 
                     input(type='text' name='name' placeholder='Item name' class='item_input' id="username")
                 div.item_form 
@@ -43,8 +47,11 @@ block content
                 div.item_form  
                     label(for='image')
                     input(type='file' name='image' class='item_input' accept='image/png/jpg')
-            div#item_submit
-                button(type='submit' value='Submit' id="item_submit_button") Submit
+                div#item_submit
+                    button(type='submit' value='Submit' id="item_submit_button") Submit
+
+    div#goToMainPage
+        a(href='/main' id="item_submit_button") Go to main page
 
 
 
