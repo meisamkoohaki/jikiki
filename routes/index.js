@@ -103,7 +103,7 @@ router.post('/signup', function (req, res) {
                                                         secure: false,
                                                         auth: {
                                                             user: 'mkoohaki.online@mkoohaki.online', // generated ethereal user
-                                                            pass: 'hostMK64656465'  // generated ethereal password
+                                                            pass: 'mkoohakiMK64656465'  // generated ethereal password
                                                         },
                                                         tls: {
                                                             rejectUnauthorized: true
