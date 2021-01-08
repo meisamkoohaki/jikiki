@@ -859,7 +859,7 @@ router.get('/activation/api/auth/verification/verify-account/:userId/:activation
     userModel.findOneAndUpdate({ _id: req.params.userId, activationCode: req.params.activationCode }, { active: true }, function (err, account) {
         if (err) console.log(err);
         if (account) {
-            res.render('signup', { success_message: 'Account has activated' });
+            res.render('signup', { success_message: 'Account is activated' });
         }
     });
 });
